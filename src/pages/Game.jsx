@@ -6,10 +6,9 @@ const Game = () => {
   const { setIsRunning } = useOutletContext();
 
   const [showTarget, setShowTarget] = useState(false);
-  const [clickPos, setClickPos] = useState({ x: 0, y: 0 }); // Coordinates relative to image
-  const [menuPos, setMenuPos] = useState({ x: 0, y: 0 }); // Coordinates for the UI box
+  const [clickPos, setClickPos] = useState({ x: 0, y: 0 });
+  const [menuPos, setMenuPos] = useState({ x: 0, y: 0 });
 
-  // Start the timer when this page loads
   useEffect(() => {
     setIsRunning(true);
     return () => setIsRunning(false);
@@ -17,13 +16,12 @@ const Game = () => {
 
   const handleImageClick = (e) => {
     const rect = e.target.getBoundingClientRect();
-    const x = e.clientX - rect.left; // x position within the element.
-    const y = e.clientY - rect.top; // y position within the element.
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
 
-    // 2. Update state to show the red box
     setClickPos({ x, y });
-    setMenuPos({ x: e.pageX, y: e.pageY }); // Optional: for absolute positioning if needed
-    setShowTarget(!showTarget); // Toggle visibility
+    setMenuPos({ x: e.pageX, y: e.pageY });
+    setShowTarget(!showTarget);
   };
 
   const handleValidation = async (characterName) => {
