@@ -6,3 +6,31 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+model Level {
+  id         String      @id @default(uuid())
+  name       String      @unique
+  characters Character[]
+}
+
+model Character {
+  id   String @id @default(uuid())
+  name String
+
+  minX Int
+  maxX Int
+  minY Int
+  maxY Int
+
+  levelId String
+  level   Level  @relation(fields: [levelId], references: [id])
+}
+
+model Score {
+  id       String   @id @default(uuid())
+  username String
+  time     Int
+  date     DateTime @default(now())
+
+  levelName String
+}
