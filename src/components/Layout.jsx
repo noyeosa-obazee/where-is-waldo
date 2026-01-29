@@ -27,7 +27,7 @@ const Layout = () => {
           <span style={{ color: "var(--color-secondary)" }}>Waldo?</span>
         </Link>
         <div className="tracker">
-          <span>Find 3 Characters</span>
+          <span>Find 5 Characters</span>
         </div>
 
         <div className="timer">{formatTime(time)}</div>

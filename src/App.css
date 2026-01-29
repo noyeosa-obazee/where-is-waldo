@@ -101,7 +101,7 @@
 
 .dropdown-menu {
   position: absolute;
-  top: 110%;
+  top: 120%;
   left: 50%;
   transform: translateX(-50%);
   background: white;

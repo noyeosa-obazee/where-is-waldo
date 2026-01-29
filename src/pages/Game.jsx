@@ -54,15 +54,17 @@ const Game = () => {
           }}
         >
           <div className="dropdown-menu">
-            {["Waldo", "Wizard", "Odlaw"].map((char) => (
-              <div
-                key={char}
-                className="dropdown-item"
-                onClick={() => handleValidation(char)}
-              >
-                Found {char}
-              </div>
-            ))}
+            {["Waldo", "Odlaw", "Woof", "Wenda", "Wizard Whitebeard"].map(
+              (char) => (
+                <div
+                  key={char}
+                  className="dropdown-item"
+                  onClick={() => handleValidation(char)}
+                >
+                  Found {char}
+                </div>
+              ),
+            )}
           </div>
         </div>
       )}
