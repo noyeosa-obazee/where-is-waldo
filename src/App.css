@@ -85,7 +85,6 @@
   display: block;
   width: 100%;
   height: auto;
-  pointer-events: none;
 }
 
 .target-box {
