@@ -1,0 +1,51 @@
+:root {
+  --color-primary: #e63946;
+  --color-secondary: #1d3557;
+  --color-accent: #f1faee;
+  --color-success: #2a9d8f;
+  --color-text: #333333;
+  --color-bg: #f8f9fa;
+
+  --header-height: 70px;
+  --radius: 12px;
+  --shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Patrick Hand", cursive;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.5;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #aaa;
+}
+
+a {
+  text-decoration: none;
+}
+
+button,
+input {
+  font-family: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
+}
