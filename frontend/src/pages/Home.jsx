@@ -1,24 +1,32 @@
 import { Link } from "react-router-dom";
-
-const levels = [
-  {
-    id: "beach",
-    name: "The Beach",
-    img: "/waldo_images/waldo_beach.jpg",
-  },
-  {
-    id: "snow",
-    name: "Ski Slopes",
-    img: "/waldo_images/waldo_snow.jpg",
-  },
-  {
-    id: "space",
-    name: "Space Station",
-    img: "/waldo_images/waldo_space.jpg",
-  },
-];
+import { useEffect, useState } from "react";
 
 const Home = () => {
+  const [levels, setLevels] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchGameLevels = async () => {
+      try {
+        const response = await fetch(`http://localhost:3000/api/levels/`);
+        const data = await response.json();
+        if (response.ok) {
+          setLevels(data);
+        } else {
+          console.error("Failed to load levels");
+        }
+      } catch (err) {
+        console.error("Error fetching levels:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchGameLevels();
+  }, []);
+
+  if (loading)
+    return <div style={{ textAlign: "center" }}>Loading Game Levels...</div>;
+
   return (
     <div
       className="modal-overlay"
@@ -30,12 +38,18 @@ const Home = () => {
           {levels.map((level) => (
             <Link
               key={level.id}
-              to={`/game/${level.id}`}
+              to={`/game/${level.name}`}
               className="level-link"
             >
               <div className="level-card">
-                <img src={level.img} alt={level.name} className="level-thumb" />
-                <h3 style={{ marginTop: "10px" }}>{level.name}</h3>
+                <img
+                  src={`/waldo_images/waldo_${level.name}.jpg`}
+                  alt={level.name}
+                  className="level-thumb"
+                />
+                <h3 style={{ marginTop: "10px" }}>
+                  {level.name.charAt(0).toUpperCase() + level.name.slice(1)}
+                </h3>
               </div>
             </Link>
           ))}

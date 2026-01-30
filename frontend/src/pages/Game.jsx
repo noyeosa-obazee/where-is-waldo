@@ -4,20 +4,47 @@ import { useParams, useOutletContext } from "react-router-dom";
 const Game = () => {
   const { levelId } = useParams();
   const { setIsRunning } = useOutletContext();
-
+  const [levelData, setLevelData] = useState(null);
+  const [characters, setCharacters] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [showTarget, setShowTarget] = useState(false);
   const [clickPos, setClickPos] = useState({ x: 0, y: 0 });
   const [menuPos, setMenuPos] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
-    setIsRunning(true);
+    const fetchLevel = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:3000/api/levels/${levelId}`,
+        );
+        const data = await response.json();
+
+        if (response.ok) {
+          setLevelData(data);
+          setCharacters(data.characters);
+          setIsRunning(true);
+        } else {
+          console.error("Failed to load level");
+        }
+      } catch (err) {
+        console.error("Error fetching level:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchLevel();
     return () => setIsRunning(false);
-  }, []);
+  }, [levelId]);
 
   const handleImageClick = (e) => {
     const rect = e.target.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
+    const x = Math.round(e.clientX - rect.left);
+    const y = Math.round(e.clientY - rect.top);
+
+    console.log(
+      `{ minX: ${x - 20}, maxX: ${x + 20}, minY: ${y - 20}, maxY: ${y + 20} }`,
+    );
 
     setClickPos({ x, y });
     setMenuPos({ x: e.pageX, y: e.pageY });
@@ -25,21 +52,34 @@ const Game = () => {
   };
 
   const handleValidation = async (characterName) => {
-    console.log(
-      `Checking for ${characterName} at X:${clickPos.x} Y:${clickPos.y}`,
-    );
-
-    // TODO: Send this data to my Backend API
-    // const response = await fetch('/api/validate', { ... })
+    try {
+      const response = await fetch("http://localhost:3000/api/validate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          levelId: levelData.name,
+          characterName: characterName,
+          x: clickPos.x,
+          y: clickPos.y,
+        }),
+      });
+    } catch (err) {
+      console.error(err);
+    }
 
     setShowTarget(false);
   };
 
+  if (loading)
+    return <div style={{ textAlign: "center" }}>Loading Game...</div>;
+  if (!levelData)
+    return <div style={{ textAlign: "center" }}>Level not found!</div>;
+
   return (
     <main className="game-board">
       <img
-        src={`/waldo_images/waldo_snow.jpg`}
-        alt="Find Waldo"
+        src={`/waldo_images/waldo_${levelData.name}.jpg`}
+        alt="Find Waldo and his friends (or enemies)"
         className="game-image"
         onClick={handleImageClick}
       />
@@ -52,17 +92,15 @@ const Game = () => {
           }}
         >
           <div className="dropdown-menu">
-            {["Waldo", "Odlaw", "Woof", "Wenda", "Wizard Whitebeard"].map(
-              (char) => (
-                <div
-                  key={char}
-                  className="dropdown-item"
-                  onClick={() => handleValidation(char)}
-                >
-                  Found {char}
-                </div>
-              ),
-            )}
+            {characters.map((char) => (
+              <div
+                key={char.id}
+                className="dropdown-item"
+                onClick={() => handleValidation(char.name)}
+              >
+                Found {char.name}
+              </div>
+            ))}
           </div>
         </div>
       )}
