@@ -6,6 +6,7 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.get("/api/levels", async (req, res) => {
   try {
@@ -48,6 +49,8 @@ app.get("/api/levels/:id", async (req, res) => {
 
 app.post("/api/validate", async (req, res) => {
   const { levelId, characterName, x, y } = req.body;
+
+  console.log("X" + "->" + x, "Y" + "->" + y);
 
   const character = await prisma.character.findFirst({
     where: {

@@ -12,8 +12,8 @@ async function main() {
       characters: [
         { name: "Waldo", minX: 0, maxX: 100, minY: 0, maxY: 100 }, // Top-Left
         { name: "Wizard", minX: 900, maxX: 1000, minY: 0, maxY: 100 }, // Top-Right
-        { name: "Odlaw", minX: 0, maxX: 100, minY: 900, maxY: 1000 }, // Bottom-Left
-        { name: "Wenda", minX: 900, maxX: 1000, minY: 900, maxY: 1000 }, // Bottom-Right
+        { name: "Odlaw", minX: 0, maxX: 100, minY: 500, maxY: 800 }, // Bottom-Left
+        { name: "Wenda", minX: 900, maxX: 1100, minY: 500, maxY: 1000 }, // Bottom-Right
       ],
     },
     {
