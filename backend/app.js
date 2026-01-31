@@ -67,7 +67,7 @@ app.post("/api/validate", async (req, res) => {
     y >= character.minY &&
     y <= character.maxY;
 
-  console.log(x, y, isFound);
+  console.log(x, y, character.maxX, character.minY);
 
   if (isFound) {
     return res.json({ found: true, character: character.name });

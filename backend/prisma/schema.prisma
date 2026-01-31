@@ -17,10 +17,10 @@ model Character {
   id   String @id @default(uuid())
   name String
 
-  minX Int
-  maxX Int
-  minY Int
-  maxY Int
+  minX Float
+  maxX Float
+  minY Float
+  maxY Float
 
   levelId String
   level   Level  @relation(fields: [levelId], references: [id])
