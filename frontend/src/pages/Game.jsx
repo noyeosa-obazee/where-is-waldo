@@ -14,8 +14,9 @@ const Game = () => {
   const [loading, setLoading] = useState(true);
   const [showTarget, setShowTarget] = useState(false);
   const [clickPos, setClickPos] = useState({ x: 0, y: 0 });
-  const [menuPos, setMenuPos] = useState({ x: 0, y: 0 });
+  const [uiPos, setUiPos] = useState({ x: 0, y: 0 });
   const [foundCharacters, setFoundCharacters] = useState([]);
+  const [foundMarkers, setFoundMarkers] = useState([]);
 
   useEffect(() => {
     const fetchLevel = async () => {
@@ -44,20 +45,28 @@ const Game = () => {
   }, [levelId]);
 
   const handleImageClick = (e) => {
-    const rect = e.target.getBoundingClientRect();
-    const x = Math.round(e.clientX - rect.left);
-    const y = Math.round(e.clientY - rect.top);
+    const img = e.target;
+    const rect = img.getBoundingClientRect();
 
-    // console.log(
-    //   `{ minX: ${x - 20}, maxX: ${x + 20}, minY: ${y - 20}, maxY: ${y + 20} }`,
-    // );
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
 
-    setClickPos({ x, y });
-    setMenuPos({ x: e.pageX, y: e.pageY });
-    setShowTarget(!showTarget);
+    const xPercent = (x / rect.width) * 100;
+    const yPercent = (y / rect.height) * 100;
+
+    console.log(`Sending: ${xPercent.toFixed(2)}%, ${yPercent.toFixed(2)}%`);
+
+    setClickPos({ x: xPercent, y: yPercent });
+    setUiPos({ x: x, y: y });
+    setShowTarget(true);
   };
 
   const handleValidation = async (characterName) => {
+    if (foundCharacters.includes(characterName)) {
+      toast(`You already found ${characterName}!`);
+      return;
+    }
+    const toastId = toast.loading(`Checking for ${characterName}...`);
     try {
       const response = await fetch("http://localhost:3000/api/validate", {
         method: "POST",
@@ -74,9 +83,17 @@ const Game = () => {
         const newFoundList = [...foundCharacters, data.character];
         setFoundCharacters(newFoundList);
 
+        const newMarker = {
+          name: characterName,
+          x: clickPos.x,
+          y: clickPos.y,
+        };
+        setFoundMarkers((prev) => [...prev, newMarker]);
+
         toast.success(`You found ${data.character}!`, {
           duration: 2000,
           icon: "🎉",
+          id: toastId,
         });
 
         if (newFoundList.length === characters.length) {
@@ -84,12 +101,16 @@ const Game = () => {
           handleGameOver();
         }
       } else {
-        toast.error("That's not them!", {
+        toast.error(`That's not ${characterName}!`, {
           duration: 1000,
           icon: "❌",
+          id: toastId,
         });
       }
     } catch (err) {
+      toast.error("Connection failed!", {
+        id: toastId,
+      });
       console.error(err);
     }
 
@@ -120,6 +141,9 @@ const Game = () => {
     }
   };
 
+  const removeTarget = () => {
+    setShowTarget(false);
+  };
   if (loading)
     return <div style={{ textAlign: "center" }}>Loading Game...</div>;
   if (!levelData)
@@ -137,8 +161,8 @@ const Game = () => {
         <div
           className="target-box"
           style={{
-            left: clickPos.x,
-            top: clickPos.y,
+            left: uiPos.x,
+            top: uiPos.y,
           }}
         >
           <div className="dropdown-menu">
@@ -151,9 +175,30 @@ const Game = () => {
                 Found {char.name}
               </div>
             ))}
+            <div>
+              <button
+                className="dropdown-item btn-cancel"
+                onClick={removeTarget}
+              >
+                Cancel
+              </button>
+            </div>
           </div>
         </div>
       )}
+
+      {foundMarkers.map((marker) => (
+        <div
+          key={marker.name}
+          className="found-marker"
+          style={{
+            left: `${marker.x}%`,
+            top: `${marker.y}%`,
+          }}
+        >
+          <span className="marker-label">{marker.name}</span>
+        </div>
+      ))}
     </main>
   );
 };
