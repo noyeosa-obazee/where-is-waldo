@@ -15,61 +15,84 @@ async function main() {
     {
       name: "beach",
       characters: [
-        { name: "Odlaw", minX: 109, maxX: 149, minY: 255, maxY: 295 },
-        { name: "Wizard", minX: 305, maxX: 345, minY: 262, maxY: 302 },
-        { name: "Wenda", minX: 914, maxX: 954, minY: 297, maxY: 337 },
-        { name: "Waldo", minX: 727, maxX: 767, minY: 279, maxY: 319 },
-        { name: "Woof", minX: 803, maxX: 843, minY: 269, maxY: 309 },
+        { name: "Odlaw", minX: 6.02, maxX: 14.14, minY: 31.92, maxY: 44.47 },
+
+        { name: "Wizard", minX: 21.33, maxX: 29.45, minY: 32.89, maxY: 45.44 },
+
+        { name: "Wenda", minX: 68.91, maxX: 77.03, minY: 37.75, maxY: 50.31 },
+
+        { name: "Waldo", minX: 54.3, maxX: 62.42, minY: 35.25, maxY: 47.81 },
+
+        { name: "Woof", minX: 60.23, maxX: 68.36, minY: 33.86, maxY: 46.42 },
       ],
     },
     {
       name: "giants",
       characters: [
-        { name: "Odlaw", minX: 689, maxX: 729, minY: 659, maxY: 699 },
-        { name: "Waldo", minX: 196, maxX: 236, minY: 481, maxY: 521 },
-        { name: "Wenda", minX: 814, maxX: 854, minY: 578, maxY: 618 },
-        { name: "Wizard", minX: 1138, maxX: 1178, minY: 559, maxY: 599 },
-        { name: "Woof", minX: 7, maxX: 47, minY: 535, maxY: 575 },
+        { name: "Odlaw", minX: 51.33, maxX: 59.45, minY: 88.03, maxY: 100.0 },
+
+        { name: "Waldo", minX: 12.81, maxX: 20.94, minY: 63.31, maxY: 75.86 },
+
+        { name: "Wenda", minX: 61.09, maxX: 69.22, minY: 76.78, maxY: 89.33 },
+
+        { name: "Wizard", minX: 86.41, maxX: 94.53, minY: 74.14, maxY: 86.69 },
+        { name: "Woof", minX: 0.0, maxX: 6.17, minY: 70.81, maxY: 83.36 },
       ],
     },
     {
       name: "space",
       characters: [
-        { name: "Wenda", minX: 336, maxX: 376, minY: 394, maxY: 434 },
-        { name: "Wizard", minX: 923, maxX: 963, minY: 442, maxY: 482 },
-        { name: "Odlaw", minX: 65, maxX: 105, minY: 529, maxY: 569 },
-        { name: "Woof", minX: 690, maxX: 730, minY: 701, maxY: 741 },
-        { name: "Waldo", minX: 469, maxX: 509, minY: 479, maxY: 519 },
+        { name: "Wenda", minX: 23.75, maxX: 31.88, minY: 51.22, maxY: 63.78 },
+
+        { name: "Wizard", minX: 69.61, maxX: 77.73, minY: 57.89, maxY: 70.44 },
+
+        { name: "Odlaw", minX: 2.58, maxX: 10.7, minY: 69.97, maxY: 82.53 },
+
+        { name: "Woof", minX: 51.41, maxX: 59.53, minY: 93.86, maxY: 100.0 },
+
+        { name: "Waldo", minX: 34.14, maxX: 42.27, minY: 63.03, maxY: 75.58 },
       ],
     },
     {
       name: "underwater",
       characters: [
-        { name: "Wizard", minX: 929, maxX: 969, minY: 73, maxY: 113 },
-        { name: "Woof", minX: 1114, maxX: 1154, minY: 196, maxY: 236 },
-        { name: "Wenda", minX: 607, maxX: 647, minY: 162, maxY: 202 },
-        { name: "Waldo", minX: 781, maxX: 821, minY: 99, maxY: 139 },
-        { name: "Odlaw", minX: 344, maxX: 384, minY: 124, maxY: 164 },
+        { name: "Wizard", minX: 70.08, maxX: 78.2, minY: 6.64, maxY: 19.19 },
+
+        { name: "Woof", minX: 84.53, maxX: 92.66, minY: 23.72, maxY: 36.28 },
+
+        { name: "Wenda", minX: 44.92, maxX: 53.05, minY: 19.0, maxY: 31.56 },
+
+        { name: "Waldo", minX: 58.52, maxX: 66.64, minY: 10.25, maxY: 22.81 },
+
+        { name: "Odlaw", minX: 24.38, maxX: 32.5, minY: 13.72, maxY: 26.28 },
       ],
     },
     {
       name: "food",
       characters: [
-        { name: "Waldo", minX: 669, maxX: 709, minY: 251, maxY: 291 },
-        { name: "Woof", minX: 805, maxX: 845, minY: 447, maxY: 487 },
-        { name: "Wenda", minX: 451, maxX: 491, minY: 227, maxY: 267 },
-        { name: "Wizard", minX: 1010, maxX: 1050, minY: 633, maxY: 673 },
-        { name: "Odlaw", minX: 467, maxX: 507, minY: 439, maxY: 479 },
+        { name: "Waldo", minX: 49.77, maxX: 57.89, minY: 31.36, maxY: 43.92 },
+
+        { name: "Woof", minX: 60.39, maxX: 68.52, minY: 58.58, maxY: 71.14 },
+
+        { name: "Wenda", minX: 32.73, maxX: 40.86, minY: 28.03, maxY: 40.58 },
+
+        { name: "Wizard", minX: 76.41, maxX: 84.53, minY: 84.42, maxY: 96.97 },
+
+        { name: "Odlaw", minX: 33.98, maxX: 42.11, minY: 57.47, maxY: 70.03 },
       ],
     },
     {
       name: "toystore",
       characters: [
-        { name: "Wenda", minX: 371, maxX: 411, minY: 606, maxY: 646 },
-        { name: "Waldo", minX: 187, maxX: 227, minY: 516, maxY: 556 },
-        { name: "Odlaw", minX: 1139, maxX: 1179, minY: 259, maxY: 299 },
-        { name: "Woof", minX: 964, maxX: 1004, minY: 666, maxY: 706 },
-        { name: "Wizard", minX: 941, maxX: 981, minY: 60, maxY: 100 },
+        { name: "Wenda", minX: 26.48, maxX: 34.61, minY: 80.67, maxY: 93.22 },
+
+        { name: "Waldo", minX: 12.11, maxX: 20.23, minY: 68.17, maxY: 80.72 },
+
+        { name: "Odlaw", minX: 86.48, maxX: 94.61, minY: 32.47, maxY: 45.03 },
+
+        { name: "Woof", minX: 72.81, maxX: 80.94, minY: 89.0, maxY: 100.0 },
+
+        { name: "Wizard", minX: 71.02, maxX: 79.14, minY: 4.83, maxY: 17.39 },
       ],
     },
   ];
