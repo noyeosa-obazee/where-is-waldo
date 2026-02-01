@@ -16,7 +16,10 @@ const Layout = () => {
     if (isRunning) {
       interval = setInterval(() => setTime((prev) => prev + 1), 1000);
     }
-    return () => clearInterval(interval);
+    return () => {
+      clearInterval(interval);
+      setTime(0);
+    };
   }, [isRunning]);
 
   return (
@@ -27,10 +30,20 @@ const Layout = () => {
           <span style={{ color: "var(--color-secondary)" }}>Waldo?</span>
         </Link>
         <div className="tracker">
-          <span>Find 5 Characters</span>
+          <span className="tracker-label">Find:</span>
+          <img
+            src="/waldo_images/waldo_characters.jpg"
+            alt="Waldo Characters"
+            className="tracker-image"
+          />
         </div>
-
-        <div className="timer">{formatTime(time)}</div>
+        <div className="header-right">
+          <nav className="nav-links">
+            <Link to="/instructions">How to Play</Link>
+            <Link to="/leaderboard">Scores</Link>
+          </nav>
+          <div className="timer">{formatTime(time)}</div>
+        </div>
       </header>
       <div className="app-body">
         <Outlet context={{ setTime, setIsRunning, time }} />
