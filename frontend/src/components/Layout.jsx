@@ -46,7 +46,7 @@ const Layout = () => {
         </div>
       </header>
       <div className="app-body">
-        <Outlet context={{ setTime, setIsRunning, time }} />
+        <Outlet context={{ setTime, setIsRunning, time, formatTime }} />
       </div>
     </div>
   );

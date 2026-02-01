@@ -264,6 +264,86 @@
   white-space: nowrap;
 }
 
+.leaderboard-container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px;
+  text-align: center;
+}
+
+h1 {
+  color: #333;
+  margin-bottom: 30px;
+}
+
+.level-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+}
+
+.tab-btn {
+  padding: 8px 16px;
+  border: none;
+  background-color: #eee;
+  cursor: pointer;
+  border-radius: 20px;
+  font-weight: bold;
+  transition: all 0.2s;
+}
+
+.tab-btn.active {
+  background-color: var(--color-primary);
+  color: white;
+  transform: scale(1.05);
+}
+
+.score-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.score-table th,
+.score-table td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.score-table th {
+  background-color: #f8f9fa;
+  font-weight: bold;
+  color: #555;
+}
+
+.score-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+.player-name {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+.player-time {
+  font-family: monospace;
+  font-size: 1.1em;
+  color: var(--color-primary);
+}
+
+.back-btn {
+  display: inline-block;
+  margin-top: 30px;
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
 @keyframes popIn {
   from {
     transform: translate(-50%, -50%) scale(0);

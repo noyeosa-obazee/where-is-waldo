@@ -3,6 +3,7 @@ import { Toaster } from "react-hot-toast";
 import Layout from "./components/Layout";
 import Home from "./pages/Home";
 import Game from "./pages/Game";
+import Leaderboard from "./pages/Leaderboard";
 import "./App.css";
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="game/:levelId" element={<Game />} />
+          <Route path="leaderboard" element={<Leaderboard />} />
         </Route>
       </Routes>
     </BrowserRouter>
