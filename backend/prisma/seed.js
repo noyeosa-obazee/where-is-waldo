@@ -17,7 +17,7 @@ async function main() {
       characters: [
         { name: "Odlaw", minX: 6.02, maxX: 14.14, minY: 28.0, maxY: 48.0 },
         { name: "Wizard", minX: 21.33, maxX: 29.45, minY: 29.0, maxY: 49.0 },
-        { name: "Wenda", minX: 68.91, maxX: 77.03, minY: 34.0, maxY: 54.0 },
+        { name: "Wenda", minX: 68.91, maxX: 78.0, minY: 34.0, maxY: 54.0 },
         { name: "Waldo", minX: 54.3, maxX: 62.42, minY: 31.0, maxY: 51.0 },
         { name: "Woof", minX: 60.23, maxX: 68.36, minY: 30.0, maxY: 50.0 },
       ],

@@ -16,10 +16,7 @@ const Layout = () => {
     if (isRunning) {
       interval = setInterval(() => setTime((prev) => prev + 1), 1000);
     }
-    return () => {
-      clearInterval(interval);
-      setTime(0);
-    };
+    return () => clearInterval(interval);
   }, [isRunning]);
 
   return (
@@ -40,7 +37,7 @@ const Layout = () => {
         <div className="header-right">
           <nav className="nav-links">
             <Link to="/instructions">How to Play</Link>
-            <Link to="/leaderboard">Scores</Link>
+            <Link to="/leaderboard">Leaderboard</Link>
           </nav>
           <div className="timer">{formatTime(time)}</div>
         </div>

@@ -8,7 +8,7 @@ const MySwal = withReactContent(Swal);
 
 const Game = () => {
   const { levelId } = useParams();
-  const { setIsRunning } = useOutletContext();
+  const { time, setIsRunning } = useOutletContext();
   const [levelData, setLevelData] = useState(null);
   const [characters, setCharacters] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -98,7 +98,7 @@ const Game = () => {
 
         if (newFoundList.length === characters.length) {
           setIsRunning(false);
-          handleGameOver();
+          handleGameOver(time);
         }
       } else {
         toast.error(`That's not ${characterName}!`, {
@@ -118,26 +118,44 @@ const Game = () => {
   };
 
   const handleGameOver = async (finalTime) => {
-    const result = await MySwal.fire({
-      title: <strong>YOU FOUND EVERYONE!</strong>,
-      html: <p>Your time was: {finalTime} seconds</p>,
-      icon: "success",
-      input: "text",
-      inputLabel: "Enter your name for the leaderboard:",
-      inputValidator: (value) => {
-        if (!value) {
-          return "You need to write something!";
-        }
-      },
-      confirmButtonText: "Submit Score",
-      showCancelButton: true,
-      allowOutsideClick: false,
-    });
+    try {
+      const result = await MySwal.fire({
+        title: <strong>YOU FOUND EVERYONE!</strong>,
+        html: <p>Your time was: {finalTime} seconds</p>,
+        icon: "success",
+        input: "text",
+        inputLabel: "Enter your name for the leaderboard:",
+        inputValidator: (value) => {
+          if (!value) {
+            return "You need to write something!";
+          }
+        },
+        confirmButtonText: "Submit Score",
+        showCancelButton: true,
+        allowOutsideClick: false,
+      });
 
-    if (result.isConfirmed) {
-      const userName = result.value;
-      // Send to backend API...
-      console.log(`Saving score for ${userName}...`);
+      if (result.isConfirmed) {
+        const toastId = toast.loading("Saving score to leaderboard");
+        const userName = result.value;
+
+        const response = await fetch("http://localhost:3000/api/scores", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            username: userName,
+            time: time,
+            levelName: levelData.name,
+          }),
+        });
+        if (response.ok) {
+          toast.success("Saved score to leaderboard", { id: toastId });
+        } else {
+          toast.error("Error saving score", { id: toastId });
+        }
+      }
+    } catch (err) {
+      console.error(err);
     }
   };
 
