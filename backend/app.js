@@ -79,21 +79,46 @@ app.post("/api/validate", async (req, res) => {
 app.post("/api/scores", async (req, res) => {
   const { username, time, levelName } = req.body;
 
-  const newScore = await prisma.score.create({
-    data: { username, time, levelName },
-  });
+  try {
+    const level = await prisma.level.findUnique({
+      where: { name: levelName },
+    });
 
-  res.json(newScore);
+    if (!level) return res.status(404).json({ error: "Level not found" });
+
+    const newScore = await prisma.score.create({
+      data: {
+        username,
+        time,
+        levelId: level.id,
+      },
+    });
+
+    res.json(newScore);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to save score" });
+  }
 });
 
 app.get("/api/scores/:levelName", async (req, res) => {
-  const scores = await prisma.score.findMany({
-    where: { levelName: req.params.levelName },
-    orderBy: { time: "asc" },
-    take: 10,
-  });
+  const { levelName } = req.params;
 
-  res.json(scores);
+  try {
+    const scores = await prisma.score.findMany({
+      where: {
+        level: { name: levelName },
+      },
+      orderBy: {
+        time: "asc",
+      },
+      take: 20,
+    });
+
+    res.json(scores);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to fetch scores" });
+  }
 });
 
 const PORT = process.env.PORT || 3000;
