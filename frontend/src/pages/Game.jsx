@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams, useOutletContext } from "react-router-dom";
+import { useParams, useOutletContext, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
@@ -8,7 +8,11 @@ const MySwal = withReactContent(Swal);
 
 const Game = () => {
   const { levelId } = useParams();
-  const { time, setIsRunning } = useOutletContext();
+  const navigate = useNavigate();
+  const [username, setUsername] = useState(() => {
+    return localStorage.getItem("waldo_game_username") || "";
+  });
+  const { time, setIsRunning, handleReset } = useOutletContext();
   const [levelData, setLevelData] = useState(null);
   const [characters, setCharacters] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -43,6 +47,11 @@ const Game = () => {
     fetchLevel();
     return () => setIsRunning(false);
   }, [levelId]);
+
+  const saveUserName = (newName) => {
+    localStorage.setItem("waldo_game_username", newName);
+    setUsername(newName);
+  };
 
   const handleImageClick = (e) => {
     const img = e.target;
@@ -98,7 +107,7 @@ const Game = () => {
 
         if (newFoundList.length === characters.length) {
           setIsRunning(false);
-          handleGameOver(time);
+          username ? handleGameOver(time) : handleInitialGameOver(time);
         }
       } else {
         toast.error(`That's not ${characterName}!`, {
@@ -119,6 +128,45 @@ const Game = () => {
 
   const handleGameOver = async (finalTime) => {
     try {
+      const toastId = toast.loading("Saving score to leaderboard");
+      const response = await fetch("http://localhost:3000/api/scores", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          username: username,
+          time: time,
+          levelName: levelData.name,
+        }),
+      });
+
+      if (response.ok) {
+        toast.success("Saved score to leaderboard", { id: toastId });
+      } else {
+        toast.error("Error saving score", { id: toastId });
+      }
+
+      const result = await MySwal.fire({
+        title: <strong>YOU FOUND EVERYONE!</strong>,
+        html: <p>Your time was: {finalTime} seconds</p>,
+        icon: "success",
+        confirmButtonText: "Play Again",
+        cancelButtonText: "Go Home",
+        showCancelButton: true,
+        allowOutsideClick: false,
+      });
+
+      if (result.isConfirmed) {
+        handleReset();
+      } else {
+        navigate("/");
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const handleInitialGameOver = async (finalTime) => {
+    try {
       const result = await MySwal.fire({
         title: <strong>YOU FOUND EVERYONE!</strong>,
         html: <p>Your time was: {finalTime} seconds</p>,
@@ -131,14 +179,14 @@ const Game = () => {
           }
         },
         confirmButtonText: "Submit Score",
-        showCancelButton: true,
+        showCancelButton: false,
         allowOutsideClick: false,
       });
 
       if (result.isConfirmed) {
         const toastId = toast.loading("Saving score to leaderboard");
         const userName = result.value;
-
+        saveUserName(userName);
         const response = await fetch("http://localhost:3000/api/scores", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -152,6 +200,22 @@ const Game = () => {
           toast.success("Saved score to leaderboard", { id: toastId });
         } else {
           toast.error("Error saving score", { id: toastId });
+        }
+
+        const nextResult = await MySwal.fire({
+          title: <strong>YOU FOUND EVERYONE!</strong>,
+          html: <p>Your time was: {finalTime} seconds</p>,
+          icon: "success",
+          confirmButtonText: "Play Again",
+          cancelButtonText: "Go Home",
+          showCancelButton: true,
+          allowOutsideClick: false,
+        });
+
+        if (nextResult.isConfirmed) {
+          handleReset();
+        } else {
+          navigate("/");
         }
       }
     } catch (err) {
