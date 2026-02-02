@@ -52,6 +52,7 @@ const Layout = () => {
           <nav className="nav-links">
             <Link to="/instructions">How to Play</Link>
             <Link to="/leaderboard">Leaderboard</Link>
+            <Link to="/scores">My Scores</Link>
           </nav>
           <div className="timer">{formatTime(time)}</div>
         </div>

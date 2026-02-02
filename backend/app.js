@@ -121,5 +121,26 @@ app.get("/api/scores/:levelName", async (req, res) => {
   }
 });
 
+app.get("/api/scores/:levelName/:userName", async (req, res) => {
+  const { levelName, userName } = req.params;
+
+  try {
+    const scores = await prisma.score.findMany({
+      where: {
+        level: { name: levelName },
+        username: userName,
+      },
+      orderBy: {
+        time: "asc",
+      },
+      take: 20,
+    });
+
+    res.json(scores);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to fetch scores" });
+  }
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
