@@ -405,6 +405,40 @@ h1 {
   display: block;
 }
 
+.level-card.locked {
+  filter: grayscale(100%);
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.lock-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  color: white;
+  border-radius: 8px;
+}
+
+.lock-icon {
+  font-size: 2.5rem;
+  margin-bottom: 5px;
+}
+
+.lock-text {
+  font-weight: bold;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
 @media (max-width: 600px) {
   .logo {
     display: none;

@@ -3,6 +3,7 @@ import { useParams, useOutletContext, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import { LEVEL_SEQUENCE } from "../constants/levels";
 
 const MySwal = withReactContent(Swal);
 
@@ -47,6 +48,25 @@ const Game = () => {
     fetchLevel();
     return () => setIsRunning(false);
   }, [levelId]);
+
+  const unlockNextLevel = (currentLevelId) => {
+    const unlocked = JSON.parse(localStorage.getItem("waldo_unlocked")) || [
+      LEVEL_SEQUENCE[0],
+    ];
+
+    const currentIndex = LEVEL_SEQUENCE.indexOf(currentLevelId);
+
+    if (currentIndex >= 0 && currentIndex < LEVEL_SEQUENCE.length - 1) {
+      const nextLevel = LEVEL_SEQUENCE[currentIndex + 1];
+
+      if (!unlocked.includes(nextLevel)) {
+        unlocked.push(nextLevel);
+        localStorage.setItem("waldo_unlocked", JSON.stringify(unlocked));
+
+        toast.success("New Level Unlocked!");
+      }
+    }
+  };
 
   const saveUserName = (newName) => {
     localStorage.setItem("waldo_game_username", newName);
@@ -144,6 +164,8 @@ const Game = () => {
       } else {
         toast.error("Error saving score", { id: toastId });
       }
+
+      unlockNextLevel(levelId);
 
       const result = await MySwal.fire({
         title: <strong>YOU FOUND EVERYONE!</strong>,
