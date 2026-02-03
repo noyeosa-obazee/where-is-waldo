@@ -557,8 +557,8 @@ h1 {
   }
 
   .score-table {
-    width: 100%;
-    min-width: 400px;
+    max-width: 100vw;
+    min-width: 300px;
     box-shadow: none;
   }
 }
