@@ -224,6 +224,8 @@ const Game = () => {
           toast.error("Error saving score", { id: toastId });
         }
 
+        unlockNextLevel(levelId);
+
         const nextResult = await MySwal.fire({
           title: <strong>YOU FOUND EVERYONE!</strong>,
           html: <p>Your time was: {finalTime} seconds</p>,
