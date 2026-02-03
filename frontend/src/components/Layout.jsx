@@ -5,6 +5,7 @@ const Layout = () => {
   const [resetKey, setResetKey] = useState(0);
   const [time, setTime] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleReset = () => {
     setTime(0);
@@ -42,12 +43,31 @@ const Layout = () => {
           />
         </div>
         <div className="header-right">
-          <nav className="nav-links">
-            <Link to="/instructions">How to Play</Link>
-            <Link to="/leaderboard">Leaderboard</Link>
-            <Link to="/scores">My Scores</Link>
-          </nav>
+          <div className={`nav-links ${isMenuOpen ? "active" : ""}`}>
+            <Link to="/" onClick={() => setIsMenuOpen(false)}>
+              Home
+            </Link>
+
+            <Link to="/instructions" onClick={() => setIsMenuOpen(false)}>
+              How to Play
+            </Link>
+            <Link to="/leaderboard" onClick={() => setIsMenuOpen(false)}>
+              Leaderboard
+            </Link>
+            <Link to="/scores" onClick={() => setIsMenuOpen(false)}>
+              My Scores
+            </Link>
+          </div>
+
           <div className="timer">{formatTime(time)}</div>
+          <div
+            className={`hamburger ${isMenuOpen ? "active" : ""}`}
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
+            <span className="bar"></span>
+            <span className="bar"></span>
+            <span className="bar"></span>
+          </div>
         </div>
       </header>
       <div className="app-body">

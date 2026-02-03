@@ -47,7 +47,7 @@ const Scores = () => {
 
       <div className="score-table-wrapper">
         {loading ? (
-          <p>Loading scores...</p>
+          <p style={{ textAlign: "center" }}>Loading scores...</p>
         ) : scores.length === 0 ? (
           <p className="no-scores">No scores yet! Be the first.</p>
         ) : (

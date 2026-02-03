@@ -196,7 +196,7 @@
 
 .level-select-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 1rem;
   margin: 2rem 0;
 }
@@ -266,7 +266,9 @@
 
 .leaderboard-container {
   max-width: 800px;
+
   margin: 40px auto;
+
   padding: 20px;
   text-align: center;
 }
@@ -439,17 +441,156 @@ h1 {
   text-transform: uppercase;
 }
 
-@media (max-width: 600px) {
+.hamburger {
+  display: none;
+  cursor: pointer;
+  flex-direction: column;
+  gap: 5px;
+  z-index: 1001;
+}
+
+.bar {
+  width: 25px;
+  height: 3px;
+  background-color: black;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+.hamburger.active .bar:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+.hamburger.active .bar:nth-child(2) {
+  opacity: 0;
+}
+.hamburger.active .bar:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+}
+.score-table {
+  box-shadow: none;
+  min-width: 500px;
+}
+
+@media (max-width: 768px) {
+  .game-header {
+    padding: 0 1rem;
+    height: 60px;
+  }
+
+  /* .logo {
+    font-size: 1.2rem;
+    z-index: 1001;
+  } */
+
   .logo {
     display: none;
   }
 
-  .game-header {
-    justify-content: center;
-    gap: 15px;
+  .hamburger {
+    display: flex;
   }
 
-  .tracker-image {
+  .nav-links {
+    position: fixed;
+    top: 60px;
+    right: -100%;
+    width: 70%;
+    max-width: 300px;
+    height: calc(100vh - 60px);
+    background-color: white;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 2rem;
+    gap: 2rem;
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+    transition: right 0.3s ease-in-out;
+  }
+
+  .nav-links.active {
+    right: 0;
+  }
+
+  .nav-links a {
+    font-size: 1.2rem;
+  }
+
+  .tracker {
+    gap: 0.8rem;
+  }
+
+  .tracker-img {
+    width: 35px;
     height: 35px;
+  }
+
+  .modal-content {
+    width: 90%;
+    padding: 1.5rem;
+  }
+
+  .modal-title {
+    font-size: 1.5rem;
+  }
+
+  .leaderboard-container {
+    padding: 10px;
+    margin-top: 20px;
+  }
+
+  .level-tabs {
+    gap: 5px;
+  }
+
+  .tab-btn {
+    font-size: 0.85rem;
+    padding: 6px 12px;
+  }
+
+  .score-table {
+    width: 100%;
+    min-width: 400px;
+    box-shadow: none;
+  }
+}
+
+@media (max-width: 380px) {
+  .logo {
+    font-size: 1rem;
+  }
+
+  .tracker-label {
+    /*  run out of space and hide the word "Find" */
+    display: none;
+  }
+  .game-header {
+    padding: 0 10px;
+  }
+
+  .logo {
+    font-size: 1.1rem;
+    letter-spacing: 0;
+  }
+
+  .header-right {
+    gap: 10px;
+  }
+
+  .timer {
+    font-size: 0.9rem;
+    padding: 4px 8px;
+  }
+
+  .bar {
+    width: 22px;
   }
 }
