@@ -19,13 +19,6 @@ const Layout = () => {
   };
 
   useEffect(() => {
-    if (location.pathname === "/") {
-      setTime(0);
-      setIsRunning(false);
-    }
-  }, [location.pathname]);
-
-  useEffect(() => {
     let interval;
     if (isRunning) {
       interval = setInterval(() => setTime((prev) => prev + 1), 1000);

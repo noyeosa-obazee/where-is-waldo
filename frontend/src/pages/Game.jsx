@@ -13,7 +13,7 @@ const Game = () => {
   const [username, setUsername] = useState(() => {
     return localStorage.getItem("waldo_game_username") || "";
   });
-  const { time, setIsRunning, handleReset } = useOutletContext();
+  const { time, setIsRunning, handleReset, setTime } = useOutletContext();
   const [levelData, setLevelData] = useState(null);
   const [characters, setCharacters] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -46,7 +46,10 @@ const Game = () => {
     };
 
     fetchLevel();
-    return () => setIsRunning(false);
+    return () => {
+      setIsRunning(false);
+      setTime(0);
+    };
   }, [levelId]);
 
   const unlockNextLevel = (currentLevelId) => {
