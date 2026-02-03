@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useOutletContext } from "react-router-dom";
 
 const Scores = () => {
+  const backendUrl = import.meta.env.VITE_API_URL;
   const username = localStorage.getItem("waldo_game_username");
   const { formatTime } = useOutletContext();
   const [scores, setScores] = useState([]);
@@ -15,7 +16,7 @@ const Scores = () => {
       setLoading(true);
       try {
         const response = await fetch(
-          `http://localhost:3000/api/scores/${currentLevel}/${username}`,
+          `${backendUrl}/api/scores/${currentLevel}/${username}`,
         );
         const data = await response.json();
         setScores(data);

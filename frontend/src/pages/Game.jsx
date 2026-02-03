@@ -8,6 +8,7 @@ import { LEVEL_SEQUENCE } from "../constants/levels";
 const MySwal = withReactContent(Swal);
 
 const Game = () => {
+  const backendUrl = import.meta.env.VITE_API_URL;
   const { levelId } = useParams();
   const navigate = useNavigate();
   const [username, setUsername] = useState(() => {
@@ -26,9 +27,7 @@ const Game = () => {
   useEffect(() => {
     const fetchLevel = async () => {
       try {
-        const response = await fetch(
-          `http://localhost:3000/api/levels/${levelId}`,
-        );
+        const response = await fetch(`${backendUrl}/api/levels/${levelId}`);
         const data = await response.json();
 
         if (response.ok) {
@@ -100,7 +99,7 @@ const Game = () => {
     }
     const toastId = toast.loading(`Checking for ${characterName}...`);
     try {
-      const response = await fetch("http://localhost:3000/api/validate", {
+      const response = await fetch(`${backendUrl}/api/validate`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -152,7 +151,7 @@ const Game = () => {
   const handleGameOver = async (finalTime) => {
     try {
       const toastId = toast.loading("Saving score to leaderboard");
-      const response = await fetch("http://localhost:3000/api/scores", {
+      const response = await fetch(`${backendUrl}/api/scores`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -212,7 +211,7 @@ const Game = () => {
         const toastId = toast.loading("Saving score to leaderboard");
         const userName = result.value;
         saveUserName(userName);
-        const response = await fetch("http://localhost:3000/api/scores", {
+        const response = await fetch(`${backendUrl}/api/scores`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({

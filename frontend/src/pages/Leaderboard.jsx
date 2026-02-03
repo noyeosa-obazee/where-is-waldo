@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useOutletContext } from "react-router-dom";
 
 const Leaderboard = () => {
+  const backendUrl = import.meta.env.VITE_API_URL;
   const { formatTime } = useOutletContext();
   const [scores, setScores] = useState([]);
   const [currentLevel, setCurrentLevel] = useState("beach");
@@ -14,7 +15,7 @@ const Leaderboard = () => {
       setLoading(true);
       try {
         const response = await fetch(
-          `http://localhost:3000/api/scores/${currentLevel}`,
+          `${backendUrl}/api/scores/${currentLevel}`,
         );
         const data = await response.json();
         setScores(data);

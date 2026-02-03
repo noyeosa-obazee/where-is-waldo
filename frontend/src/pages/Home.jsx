@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { LEVEL_SEQUENCE } from "../constants/levels";
 
 const Home = () => {
+  const backendUrl = import.meta.env.VITE_API_URL;
   const [unlockedLevels, setUnlockedLevels] = useState([]);
   const [levels, setLevels] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -10,7 +11,7 @@ const Home = () => {
   useEffect(() => {
     const fetchGameLevels = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/api/levels/`);
+        const response = await fetch(`${backendUrl}/api/levels/`);
         const data = await response.json();
         if (response.ok) {
           setLevels(data);
