@@ -85,8 +85,6 @@ const Game = () => {
     const xPercent = (x / rect.width) * 100;
     const yPercent = (y / rect.height) * 100;
 
-    console.log(`Sending: ${xPercent.toFixed(2)}%, ${yPercent.toFixed(2)}%`);
-
     setClickPos({ x: xPercent, y: yPercent });
     setUiPos({ x: x, y: y });
     setShowTarget(true);
