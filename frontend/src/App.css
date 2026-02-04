@@ -63,7 +63,6 @@
 }
 
 .timer {
-  font-family: monospace;
   font-size: 1.5rem;
   background-color: var(--color-secondary);
   color: white;
@@ -561,6 +560,35 @@ h1 {
     min-width: 300px;
     box-shadow: none;
   }
+
+  .target-box,
+  .found-marker {
+    width: 40px;
+    height: 40px;
+    border-width: 3px;
+  }
+
+  .marker-label {
+    top: -20px;
+    font-size: 10px;
+  }
+
+  .dropdown-menu {
+    min-width: 100px;
+    border-radius: 6px;
+  }
+
+  .dropdown-item {
+    padding: 8px 12px;
+    font-size: 0.85rem;
+    font-weight: 500;
+  }
+
+  .dropdown-item.btn-cancel {
+    padding-top: 6px;
+    padding-bottom: 6px;
+    font-size: 0.8rem;
+  }
 }
 
 @media (max-width: 380px) {
@@ -592,5 +620,38 @@ h1 {
 
   .bar {
     width: 22px;
+  }
+
+  .target-box,
+  .found-marker {
+    width: 30px;
+    height: 30px;
+    border-width: 2px;
+  }
+}
+
+@media (max-width: 600px) {
+  .game-header {
+    height: 50px;
+    padding: 0 8px;
+  }
+
+  .timer {
+    font-size: 0.8rem;
+    padding: 2px 6px;
+  }
+
+  .tracker-label {
+    display: none;
+  }
+
+  .tracker-img {
+    width: 25px;
+    height: 25px;
+  }
+
+  .tracker {
+    gap: 5px;
+    padding: 2px 8px;
   }
 }
