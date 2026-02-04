@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import Game from "./pages/Game";
 import Leaderboard from "./pages/Leaderboard";
 import Scores from "./pages/Scores";
+import HowToPlay from "./pages/HowToPlay";
 import "./App.css";
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
           <Route path="game/:levelId" element={<Game />} />
           <Route path="leaderboard" element={<Leaderboard />} />
           <Route path="scores" element={<Scores />} />
+          <Route path="instructions" element={<HowToPlay />} />
         </Route>
       </Routes>
     </BrowserRouter>

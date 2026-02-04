@@ -454,6 +454,7 @@ h1 {
   background-color: black;
   border-radius: 2px;
   transition: all 0.3s ease;
+  color: #555;
 }
 
 .hamburger.active .bar:nth-child(1) {
@@ -589,6 +590,10 @@ h1 {
     padding-bottom: 6px;
     font-size: 0.8rem;
   }
+
+  .htp-cta {
+    box-shadow: none;
+  }
 }
 
 @media (max-width: 380px) {
@@ -653,5 +658,120 @@ h1 {
   .tracker {
     gap: 5px;
     padding: 2px 8px;
+  }
+}
+
+.how-to-play-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+  min-height: 80vh;
+}
+
+.htp-content {
+  max-width: 800px;
+  width: 100%;
+  text-align: center;
+  background: white;
+  padding: 3rem;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.htp-title {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+
+  letter-spacing: 2px;
+}
+
+.htp-image-container {
+  margin-bottom: 3rem;
+  background-color: var(--color-bg);
+  padding: 20px;
+  border-radius: 12px;
+}
+
+.htp-hero-image {
+  max-width: 100%;
+  height: auto;
+  max-height: 300px;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+}
+
+.htp-steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+  text-align: left;
+}
+
+.htp-step-card {
+  background: #f9f9f9;
+  padding: 1.5rem;
+  border-radius: 8px;
+  position: relative;
+  transition: transform 0.2s;
+}
+
+.htp-step-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.step-number {
+  background-color: var(--color-secondary);
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.htp-step-card h3 {
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.htp-step-card p {
+  color: #666;
+  line-height: 1.5;
+  font-size: 0.95rem;
+}
+
+.htp-cta {
+  display: inline-block;
+  text-decoration: none;
+  padding: 15px 40px;
+  font-size: 1.2rem;
+  box-shadow: 0 4px 15px rgba(211, 47, 47, 0.3);
+}
+
+@media (max-width: 600px) {
+  .htp-content {
+    padding: 1.5rem;
+  }
+
+  .htp-title {
+    font-size: 1.8rem;
+  }
+
+  .htp-steps {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .htp-image-container {
+    padding: 10px;
+    margin-bottom: 2rem;
   }
 }
